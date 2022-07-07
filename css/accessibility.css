@@ -1,0 +1,30 @@
+.mapWrapperAcc {
+  font-family: 'Source Sans Pro', sans-serif;
+  margin-top:10px;
+  position: absolute;
+  background: #202227;
+  z-index: 10;
+  width: 100%;
+  height: calc(80vh + 40px);
+  top: 320vh;
+}
+#mapBefAcc {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    width: 50%;
+    height: 100%;
+    z-index: 0;
+    cursor: pointer;
+  }
+  #mapAftAcc {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    z-index: 0;
+    cursor: pointer;
+  }

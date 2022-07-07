@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<title>Transit Equity Portal</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<script src="js/d3.js"></script>
+
+
+<script src = 'https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js'></script>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Theme CSS - Includes Bootstrap -->
+<link href="css/creative.css" rel="stylesheet">
+<link href="css/equity.css" rel="stylesheet">
+<link href="css/accessibility.css" rel="stylesheet">
+
+</head>
+
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://d3js.org/d3-hsv.v0.1.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<body id="page-top">
+
+    <div class="logo-wrapper">
+      <a href="https://cspav.gatech.edu/"><img src="img/CSPAV_TechGold.jpg" alt="" width="200" height="35"></a>
+    </div>
+  
+    <!-- Masthead -->
+    <div class="masthead">
+      <div class="container h-100">
+        <div class="row h-100 align-items-center justify-content-center text-center">
+          <div class="col-lg-10 align-self-end">
+            <h1 class="text-uppercase text-white font-weight-bold">Atlanta Transit</h1>
+            <div class="focus"> 
+                <div class="focus--mask">
+                  <div class="focus--mask-inner">Equity</div>
+                </div>
+              </div> 
+          </div>
+          <div class="col-lg-8 align-self-baseline">
+            <p class="text-white-75 font-weight-light mb-5">An interactive tool that compares 
+              the transit accessibility and equity of the conventional transit system and on-demand multimodal transit services
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="graphic">
+
+      <div id="sections">
+        <section class="step">
+        </section>
+          <section class="page-section"> 
+          </section>
+        <section class="step">
+              <!-- odmts Section -->
+          <section class="page-section bg-primary" id="odmts">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                  <h2 class="text-white mt-0">On-Demand Multimodal Transit Services</h2>
+                  <p class="text-white-50 mb-4">Being multimodal, ODMTS combine on-demand mobility services to serve low-density regions with high-occupany vehicles travling along high-density corridors</p>
+                  <a class="btn btn-light btn-xl js-scroll-trigger" href="https://sam.isye.gatech.edu/projects/demand-multimodal-transit-systems/atlanta-pilot">
+                    Learn More</a>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section class="step">
+              <!-- transit accessibility Section -->
+          <section class="page-section bg-primary" id="accessibility">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                  <h2 class="text-white mt-0">Transit accessibility</h2>
+                  <p class="text-white-50 mb-4">ODMTS, a novel transit service, contributes to improving transit accessibility across the Atlanta region. Transit accessbility ~ <br>
+                    <br>
+                  To understand its impact on transit accessibility and equity, we use two different approaches. Travel time by public transit system based approach ~
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section class="step">
+        <!-- transit accessibility map Section -->
+          <section class="page-section bg-primary" id="accessibilityMap">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                  <h2 class="text-white mt-0">Exploring transit accessibility</h2>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section class="step">
+          <!-- transit equity Section -->
+          <section class="page-section bg-primary" id="equity">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                  <h2 class="text-white mt-0">Transit equity</h2>
+                  <p class="text-white-50 mb-4">ODMTS, a novel transit service, contributes to improving transit accessibility across the Atlanta region. Transit accessbility ~ <br>
+                    <br>
+                  To understand its impact on transit accessibility and equity, we use two different approaches. Travel time by public transit system based approach ~
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section class="step">
+        <!-- transit equity map Section -->
+          <section class="page-section bg-primary" id="equityMap">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                  <h2 class="text-white mt-0">Exploring transit equity</h2>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+
+      </div>
+    <div id="vis">
+    </div>
+  </div>
+  
+    <!-- Description -->
+    <section id="description">
+      <div class="container mb-3 mt-5">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Description</h2>
+            <h4 class="section-subheading text-muted">How we deal with data and do analysis</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Footer -->
+    <!-- <footer class="bg-dark py-5">
+      <div class="container">
+        <div class="row">
+          <div class="small text-left text-muted col-md-4">&copy; 2022 Georgia Institute of Technology</div>
+          <div class="col-md-4"></div>
+          <div class="col-md-4">
+            <a href="http://cspav.gatech.edu" target="_blank" rel="noopener noreferrer">
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer> -->
+  
+    <div class="mapWrapperAcc">
+      <div class="mapTitleLeft"> <p>Conventional Public Transit System </p> </div>
+      <div class="mapTitleRight"> <p style="color: #dcfcb8;">On-demand Multimodal Transit System</p> </div>
+      <div id="mapBefAcc"></div>
+      <div id="mapAftAcc"></div>
+    </div>
+
+    <div class="mapWrapperEqu">
+      <div class="mapTitleLeft"> <p>Conventional Public Transit System </p> </div>
+      <div class="mapTitleRight"> <p style="color: #dcfcb8;">On-demand Multimodal Transit System</p> </div>
+      <div id="mapBefEqu"></div>
+      <div id="mapAftEqu"></div>
+      <div id="filter-wrapper">
+        <div class='session_demand'>
+          <div class="session_title">
+            <p>Transit demand type</p>
+          </div>
+          <div class='rowMap' id='demand'>
+            <input id='dep' type='radio' name='toggle_dem' onclick="legend_dep()" value='dep' checked='checked'>
+            <label for='dep'>Population without vehicles</label>
+            <input id='min' type='radio' name='toggle_dem' onclick="legend_min()" value='min'>
+            <label for='min'>Minority population</label>
+            <input id='pov' type='radio' name='toggle_dem' onclick="legend_pov()" value='pov'>
+            <label for='pov'>Low-income population</label>
+            <input id='emp' type='radio' name='toggle_dem' onclick="legend_emp()" value='emp'>
+            <label for='emp'>Unemployed population</label>
+            <input id='dis' type='radio' name='toggle_dem' onclick="legend_dis()" value='dis'>
+            <label for='dis'>Disabled population</label>
+            <input id='eld' type='radio' name='toggle_dem' onclick="legend_eld()" value='eld'>
+            <label for='eld'>Elderly population</label>
+            <input id='chi' type='radio' name='toggle_dem' onclick="legend_chi()" value='chi'>
+            <label for='chi'>Children below 14</label>
+          </div>
+        </div>
+        <div class="session_unit">
+          <div class="session_title">
+            <p>Transit demand unit</p>
+          </div>
+          <div class='rowMap' id='unit'>
+            <input id='act' type='radio' name='toggle_unit' onclick="unit_num()" value='act' checked='checked'>
+            <label for='act'>Number of people</label>
+            <input id='pct' type='radio' name='toggle_unit' onclick="unit_pct()" value='pct'>
+            <label for='pct'>Percentage (%)</label>
+          </div>
+        </div>
+        <div class="session_trip">
+          <div class="session_title">
+            <p>Trip type</p>
+          </div>
+          <div class='rowMap' id='trip'>
+            <input id='com' type='radio' name='toggle_trip' value='com' checked='checked'>
+            <label for='com'>Commuting trip</label>
+            <input id='non' type='radio' name='toggle_trip' value='non'>
+            <label for='non'>Non-commuting trip</label>
+          </div>
+        </div>
+        <div class='session_meas'>
+          <div class="session_title">
+            <p>Accesibility Type</p>
+          </div>
+          <div class='rowMap' id='filters_meas'>
+            <input id='abs' type='radio' name='toggle_meas' onclick="getSlider_abs()" value='abs' checked='checked'>
+            <label for='abs'>Travel Time by Public Transit</label>
+            <input id='rel' type='radio' name='toggle_meas' onclick="getSlider_rel()" value='rel'>
+            <label id= 'filter_rel' for='rel'>
+              <div class="fraction">
+                <p class="num">Travel Time by Public Transit</p>
+                <p class="dem">Travel Time by Driving</p>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div class="sliderContainer">
+          <div class='sliderContentAbsolute'>
+            <p style="margin-bottom:7px;"> Accessible within <span style="font-weight:600" id="sliderValue_abs"> </span> minutes</p>
+            <input id='myRange_abs' class="slider" type="range" min="30" max="75" value="45" step="3">
+            <p style="text-align:left; margin-bottom: 0em; font-size: 13px; font-weight: 100;"> 30 minutes <span style="float:right"> 75 minutes </span> </p>
+          </div>
+          <div class='sliderContentRelative'>
+            <p style="margin-bottom:7px;"> Accessible within <span style="font-weight:600" id="sliderValue_rel"> </span> X driving time</p>
+            <input id='myRange_rel' class="slider" type="range" min="1" max="3" value="2" step="0.2">
+            <p style="text-align:left; margin-bottom: 0em; font-size: 13px; font-weight: 100;"> Equal <span style="float:right"> 3 times </span> </p>
+          </div>
+        </div>
+        <div id="legend-wrapper">
+          <div class="legendInfo">
+            <a class="button" href="#popup3"><span class="material-symbols-outlined">Help</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/creative.js"></script>
+    <script src="js/accessibility.js"></script>
+    <script src="js/equity.js"></script>
+
+    <script src="js/scroller.js"></script>
+    <script src="js/sections_sample.js"></script>
+
+  
+  </body>
+  
+  </html>
