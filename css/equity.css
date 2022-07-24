@@ -1,16 +1,16 @@
 /* Equity Map */
-.mapWrapperEqu {
+#mapWrapperEqu {
   font-family: 'Source Sans Pro', sans-serif;
   margin-top: -40px;
   position: absolute;
-  background: #202227;
+  background: #242424;
   z-index: 10;
   width: 100%;
   height: calc(80vh + 40px);
   top: 520vh;
 }
 #mapBefEqu {
-    position: absolute;
+    position: absolute; 
     top: 0px;
     bottom: 0px;
     left: 0px;
@@ -18,170 +18,350 @@
     height: 100%;
     z-index: 0;
     cursor: pointer;
-  }
-  #mapAftEqu {
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    left: 50%;
-    width: 50%;
-    height: 100%;
-    z-index: 0;
-    cursor: pointer;
-  }
-  #filter-wrapper {
-    position: absolute;
-    left: 20px;
-    top: 30px;
-    font-weight: 500;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-shadow: 2px 2px 4px #000000;
-  }
-  
-  .session_demand {
-    width: 205px;
-    color: white;
-    font-size: 14px;
-  }
-  .session_unit {
-    width: 150px;
-    color: white;
-    font-size: 14px;
-  }
-  .session_trip {
-    width: 165px;
-    color: white;
-    font-size: 14px;
-  }
-  .session_meas {
-    color: white;
-    font-size: 14px;
-  }
-  .sliderContainer {
-    color: white;
-  }
-  
-  .rowMap {
-    padding-left: 5px;
-    padding-top: 2px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  input[type="radio"] {
-    display: none;
-  }
-  label {
-    position: relative;
-    cursor: pointer;
-    padding-right: 18px;
-    font-size: 12px;
-    font-weight: 300;
-  }
-  label:nth-child(1) {
-    padding-right: 1;
-  }
-  label::before {
-    content: "";
-    border: 1.5px solid white;
-    display: inline-block;
-    width: 10px;    
-    height: 10px;
-    margin: -2px 10px -1px 0px;
-    border-radius: 50%;
-  }
-  label#filter_rel::before {
-    content: "";
-    border: 1.5px solid white;
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    margin: 13px 10px;
-    margin-left: 1px;
-    border-radius: 50%;
-  }
-  label::after {
-    content: "";
-    display: inline-block;
-    position: absolute;
-    width: 9px;
-    height: 9px;
-    left: 1.8px;
-    top: 7px;
-    margin: -2px 10px;
-    margin-left: 0;
-    border-radius: 50%;
-    transition: all 0.4s;
-  }
-  label#filter_rel::after {
-    content: "";
-    display: inline-block;
-    position: absolute;
-    width: 9px;
-    height: 9px;
-    left: 1.8px;
-    top: 41px;
-    margin: -2px 10px;
-    margin-left: 0;
-    border-radius: 50%;
-    transition: all 0.4s;
-  }
-  input[type="radio"]:checked + label::after {
-    background: #ffffff;
-  }
-  .sliderContentAbsolute {
-    position: absolute;
-    width: 230px;
-    font-size: 14px;
-    font-weight: 300;
-    color: white;
-  }
-  .sliderContentRelative {
-    position: absolute;
-    width: 230px;
-    font-size: 14px;
-    font-weight: 300;
-    color: white;
-  }
-  .slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 7px;
-    border-radius: 5px;
-    background: #9c9c9c;
-    outline: none;
-    opacity: 1;
-  }
-  .slider:hover {
-    opacity: 1;
-  }
-  .slider::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Override default look */
-    appearance: none;
-    width: 20px; /* Set a specific slider handle width */
-    height: 20px; /* Slider handle height */
-    border-radius: 50%;
-    background: #ffffff; /* Green background */
-    cursor: pointer; /* Cursor on hover */
-  }
-  .fraction{
-    top: 5px;
-    left: -23px;
-    display: inline-block;
-    text-align: center;
-    position:relative;
-    padding:0 1.5em;
-  }
-  .fraction > .num {
-      border-bottom: 2px solid #808080;
-      padding:4px;
-      margin:10 10 8px 10;
-  }
-  .fraction > .dem{
-      padding: 0;
-      margin: 0;
-  }
+}
+#mapAftEqu {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  z-index: 0;
+  cursor: pointer;
+}
+
+.sessionEqu_demand {
+  width: 205px;
+  color: white;
+  font-size: 14px;
+}
+.sessionEqu_unit {
+  width: 150px;
+  color: white;
+  font-size: 14px;
+}
+.sessionEqu_trip {
+  width: 165px;
+  color: white;
+  font-size: 14px;
+}
+.sessionEqu_meas {
+  color: white;
+  font-size: 14px;
+}
+.sliderContainer {
+  color: white;
+}
+
+input[type="radio"] {
+  display: none;
+}
+label {
+  position: relative;
+  cursor: pointer;
+  padding-right: 18px;
+  font-size: 12px;
+  font-weight: 300;
+}
+label:nth-child(1) {
+  padding-right: 1;
+}
+label::before {
+  content: "";
+  border: 1.5px solid white;
+  display: inline-block;
+  width: 10px;    
+  height: 10px;
+  margin: -2px 10px -1px 0px;
+  border-radius: 50%;
+}
+label#filter_rel::before {
+  content: "";
+  border: 1.5px solid white;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 13px 10px;
+  margin-left: 1px;
+  border-radius: 50%;
+}
+label::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  left: 1.8px;
+  top: 7px;
+  margin: -2px 10px;
+  margin-left: 0;
+  border-radius: 50%;
+  transition: all 0.4s;
+}
+label#filter_rel::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  left: 1.8px;
+  top: 41px;
+  margin: -2px 10px;
+  margin-left: 0;
+  border-radius: 50%;
+  transition: all 0.4s;
+}
+input[type="radio"]:checked + label::after {
+  background: #ffffff;
+}
+.sliderEquContentAbsolute {
+  position: absolute;
+  width: 230px;
+  font-size: 14px;
+  font-weight: 300;
+  color: white;
+}
+.sliderEquContentRelative {
+  position: absolute;
+  width: 230px;
+  font-size: 14px;
+  font-weight: 300;
+  color: white;
+}
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 7px;
+  border-radius: 5px;
+  background: #9c9c9c;
+  outline: none;
+  opacity: 1;
+}
+.slider:hover {
+  opacity: 1;
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 20px; /* Set a specific slider handle width */
+  height: 20px; /* Slider handle height */
+  border-radius: 50%;
+  background: #ffffff; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+.fraction{
+  top: 5px;
+  left: -23px;
+  display: inline-block;
+  text-align: center;
+  position:relative;
+  padding:0 1.5em;
+}
+.fraction > .num {
+    border-bottom: 2px solid #808080;
+    padding:4px;
+    margin:10 10 8px 10;
+}
+.fraction > .dem{
+    padding: 0;
+    margin: 0;
+}
+
+#legend-wrapper {
+  position: absolute;
+  height: 40%;
+  width: 230px;
+  right: 10px;
+  bottom: 90px;
+  font-weight: 500;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-shadow: 2px 2px 4px #000000;
+}
+.legendInfo {
+  position: absolute;
+  bottom: 25px;
+  right: 10px;
+}
+
+#plot-wrapper {
+  background: rgba(0,0,0,0.5);
+  position: absolute;
+  right: calc(42% - 45px);
+  top: 50px;
+  bottom: 4%;
+  padding: 6px;
+  width: 360px;
+  z-index: 3;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+#gapSummary {
+  height: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+#scatterPlot {
+  height: 33%;
+}
+#giniSummary {
+  height: 20%;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+#lorenzCurve {
+  height: 34%;
+}
+#gapTitle {
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  text-align: center;
+  margin-bottom: -10px;
+}
+#gapSmallText {
+  align-items: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 12px;
+  font-weight: 200;
+  color: white;
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#gapValue {
+  align-items: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  height: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#giniTitle {
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: -10px;
+}
+#giniSmallText {
+  align-items: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 12px;
+  font-weight: 200;
+  color: white;
+  height: 15%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#giniValue-wrapper {
+  height: 60%; 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+#giniValue {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: -10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+
+.button {
+  color: #fff;
+  text-decoration: none;
+  z-index: 6;
+  font-family: monospace;
+}
+.material-symbols-outlined {
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 300,
+  'GRAD' 0,
+  'opsz' 48
+}
+.material-symbols-outlined:hover {
+  background: #ffd752;
+  color: #000000;
+  border-radius: 50%;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 10;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+.popup {
+  top: 10%;
+  left: calc(58% + 180px);
+  padding: 10px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2px solid white;
+  border-radius: 10px;
+  width: 29%;
+  position: relative;
+  transition: all 5s ease-in-out;
+  z-index: 6;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.popup .close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+.popup .close:hover {
+  color: #ffd752;
+}
+.popup .content {
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  overflow: auto;
+  line-height: 1.5;
+}

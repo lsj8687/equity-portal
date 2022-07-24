@@ -10,7 +10,7 @@
 
 <script src="js/d3.js"></script>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src = 'https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js'></script>
 
 <!-- Google Fonts -->
@@ -27,6 +27,7 @@
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="https://d3js.org/d3-hsv.v0.1.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -178,19 +179,130 @@
       <div class="mapTitleRight"> <p style="color: #dcfcb8;">On-demand Multimodal Transit System</p> </div>
       <div id="mapBefAcc"></div>
       <div id="mapAftAcc"></div>
+      <div class="legend-box">
+        <div class="legend-wrapperAcc">
+          <div class="legendTitle" id="legendTitle">
+            <p>Accessibility Index</p>
+          </div>
+          <div class="legendBoxes">
+            <div class="legendBox", style="background-color:#213E9A"></div>
+            <div class="legendBox", style="background-color:#3C1FA7"></div>
+            <div class="legendBox", style="background-color:#3C1FA7"></div>
+            <div class="legendBox", style="background-color:#C318B0"></div>
+            <div class="legendBox", style="background-color:#D01367"></div>
+            <div class="legendBox", style="background-color:#DE0F0E"></div>
+            <div class="legendBox", style="background-color:#EC7007"></div>
+            <div class="legendBox", style="background-color:#F9E200"></div>
+          </div>
+          <div class="legendText">
+            <p>less then 5%</p>
+            <p>5 - 10%</p>
+            <p>10 - 20%</p>
+            <p>20 - 30%</p>
+            <p>30 - 40%</p>
+            <p>40 - 60%</p>
+            <p>60 - 80%</p>
+            <p>more than 80%</p>
+          </div>
+        </div>
+      </div>
+      <div id="filter-wrapper">
+        <div class="sessionAcc_trip">
+          <div class="session_title">
+            <p>Trip type</p>
+          </div>
+          <div class='rowMap' id='filtersAcc_trip'>
+            <input id='comAcc' type='radio' name='toggleAcc_trip' value='com' checked='checked'>
+            <label for='comAcc'>Commuting</label>
+            <input id='nonAcc' type='radio' name='toggleAcc_trip' value='non'>
+            <label for='nonAcc'>Non-commuting</label>
+          </div>
+        </div>
+        <div class="sessionAcc_meas">
+          <div class="session_title">
+            <p>Accessibility type</p>
+          </div>
+          <div class='rowMap' id='filtersAcc_meas'>
+            <input id='absAcc' type='radio' name='toggleAcc_meas' onclick="getSliderAcc_abs()" value='abs' checked='checked'>
+            <label for='abs'>Travel Time by Public Transit</label>
+            <input id='relAcc' type='radio' name='toggleAcc_meas' onclick="getSliderAcc_rel()" value='rel'>
+            <label id= 'filter_rel' for='rel'>
+              <div class="fraction">
+                <p class="num">Travel Time by Public Transit</p>
+                <p class="dem">Travel Time by Driving</p>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div class="sliderContainer">
+          <div class='sliderAccContentAbsolute'>
+            <p style="margin-bottom:7px;"> Accessible within <span style="font-weight:600" id="sliderValueAcc_abs"></span> minutes</p>
+            <input id='myRangeAcc_abs' class="slider" type="range" min="30" max="75" value="45" step="3">
+            <p style="text-align:left; margin-bottom: 0em; font-size: 13px; font-weight: 100;"> 30 minutes <span style="float:right"> 75 minutes </span> </p>
+          </div>
+          <div class='sliderAccContentRelative'>
+            <p style="margin-bottom:7px;"> Accessible within <span style="font-weight:600" id="sliderValueAcc_rel"> </span> X driving time </p>
+            <input id='myRangeAcc_rel' class="slider" type="range" min="1" max="3" value="2" step="0.2">
+            <p style="text-align:left; margin-bottom: 0em; font-size: 13px; font-weight: 100;"> Equal <span style="float:right"> 3 times </span> </p>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="mapWrapperEqu">
+    <div id="mapWrapperEqu">
       <div class="mapTitleLeft"> <p>Conventional Public Transit System </p> </div>
       <div class="mapTitleRight"> <p style="color: #dcfcb8;">On-demand Multimodal Transit System</p> </div>
+      <div id='plot-wrapper'>
+        <div id='gapSummary'>
+          <div id='gapTitle'>
+            <p> Transit Inequity: demand-supply gap <a class="button" href="#popup1"><span class="material-symbols-outlined">Help</span></a></p>
+          </div>
+          <div id='gapSmallText'>
+            <p> Current </p>
+            <p style="color: #dcfcb8; font-weight: 300;"> ODMTS </p>
+          </div>
+          <div id='gapValue'>
+            <p> <span id="gapValueBefore"></b> </span> </p>
+            <p> <span id="gapValueAfter"></b> </span> </p>
+          </div>
+        </div>
+        <div id='scatterPlot'></div>
+        <div id='giniSummary'>
+          <div id="giniTitle">
+            <p>Transit Inequality by Level of Demand <a class="button" href="#popup2"><span class="material-symbols-outlined">Help</span></a></p>
+          </div>
+          <div id="giniSmallText">
+            <p> Current </p>
+            <p style="color: #dcfcb8; font-weight: 300;"> ODMTS </p>
+          </div>
+          <div id="giniValue-wrapper">
+            <div id="giniValue">
+              <p style="color: #fffde6;"> <span id="giniBeforeLow"></b> </span> </p>
+              <p style="color: #f7adad;"> <span id="giniBeforeMid"></b> </span> </p>
+              <p style="color: #e34b4b;"> <span id="giniBeforeHigh"></b> </span> </p>
+            </div>
+            <div id="giniValue">
+              <p style="font-size: 12px; font-weight: 300; text-align: center;"> Low-demand neighborhoods </p>
+              <p style="font-size: 12px; font-weight: 300; text-align: center;"> Mid-demand neighborhoods </p>
+              <p style="font-size: 12px; font-weight: 300; text-align: center;"> High-demand neighborhoods </p>
+            </div>
+            <div id="giniValue">
+              <p style="color: #fffde6;"> <span id="giniAfterLow"></b> </span> </p>
+              <p style="color: #f7adad;"> <span id="giniAfterMid"></b> </span> </p>
+              <p style="color: #e34b4b;"> <span id="giniAfterHigh"></b> </span> </p>
+            </div>
+          </div>
+        </div>
+        <div id='lorenzCurve'></div>
+      </div>
       <div id="mapBefEqu"></div>
       <div id="mapAftEqu"></div>
       <div id="filter-wrapper">
-        <div class='session_demand'>
+        <div class='sessionEqu_demand'>
           <div class="session_title">
             <p>Transit demand type</p>
           </div>
-          <div class='rowMap' id='demand'>
+          <div class='rowMap' id='demandEqu'>
             <input id='dep' type='radio' name='toggle_dem' onclick="legend_dep()" value='dep' checked='checked'>
             <label for='dep'>Population without vehicles</label>
             <input id='min' type='radio' name='toggle_dem' onclick="legend_min()" value='min'>
@@ -207,36 +319,36 @@
             <label for='chi'>Children below 14</label>
           </div>
         </div>
-        <div class="session_unit">
+        <div class="sessionEqu_unit">
           <div class="session_title">
             <p>Transit demand unit</p>
           </div>
-          <div class='rowMap' id='unit'>
+          <div class='rowMap' id='unitEqu'>
             <input id='act' type='radio' name='toggle_unit' onclick="unit_num()" value='act' checked='checked'>
             <label for='act'>Number of people</label>
             <input id='pct' type='radio' name='toggle_unit' onclick="unit_pct()" value='pct'>
             <label for='pct'>Percentage (%)</label>
           </div>
         </div>
-        <div class="session_trip">
+        <div class="sessionEqu_trip">
           <div class="session_title">
             <p>Trip type</p>
           </div>
-          <div class='rowMap' id='trip'>
+          <div class='rowMap' id='tripEqu'>
             <input id='com' type='radio' name='toggle_trip' value='com' checked='checked'>
             <label for='com'>Commuting trip</label>
             <input id='non' type='radio' name='toggle_trip' value='non'>
             <label for='non'>Non-commuting trip</label>
           </div>
         </div>
-        <div class='session_meas'>
+        <div class='sessionEqu_meas'>
           <div class="session_title">
             <p>Accesibility Type</p>
           </div>
-          <div class='rowMap' id='filters_meas'>
-            <input id='abs' type='radio' name='toggle_meas' onclick="getSlider_abs()" value='abs' checked='checked'>
+          <div class='rowMap' id='filtersEqu_meas'>
+            <input id='abs' type='radio' name='toggle_meas' onclick="getSliderEqu_abs()" value='abs' checked='checked'>
             <label for='abs'>Travel Time by Public Transit</label>
-            <input id='rel' type='radio' name='toggle_meas' onclick="getSlider_rel()" value='rel'>
+            <input id='rel' type='radio' name='toggle_meas' onclick="getSliderEqu_rel()" value='rel'>
             <label id= 'filter_rel' for='rel'>
               <div class="fraction">
                 <p class="num">Travel Time by Public Transit</p>
@@ -246,25 +358,119 @@
           </div>
         </div>
         <div class="sliderContainer">
-          <div class='sliderContentAbsolute'>
-            <p style="margin-bottom:7px;"> Accessible within <span style="font-weight:600" id="sliderValue_abs"> </span> minutes</p>
-            <input id='myRange_abs' class="slider" type="range" min="30" max="75" value="45" step="3">
+          <div class='sliderEquContentAbsolute'>
+            <p style="margin-bottom:7px;"> Accessible within <span style="font-weight:600" id="sliderValueEqu_abs"> </span> minutes</p>
+            <input id='myRangeEqu_abs' class="slider" type="range" min="30" max="75" value="45" step="3">
             <p style="text-align:left; margin-bottom: 0em; font-size: 13px; font-weight: 100;"> 30 minutes <span style="float:right"> 75 minutes </span> </p>
           </div>
-          <div class='sliderContentRelative'>
-            <p style="margin-bottom:7px;"> Accessible within <span style="font-weight:600" id="sliderValue_rel"> </span> X driving time</p>
-            <input id='myRange_rel' class="slider" type="range" min="1" max="3" value="2" step="0.2">
+          <div class='sliderEquContentRelative'>
+            <p style="margin-bottom:7px;"> Accessible within <span style="font-weight:600" id="sliderValueEqu_rel"> </span> X driving time</p>
+            <input id='myRangeEqu_rel' class="slider" type="range" min="1" max="3" value="2" step="0.2">
             <p style="text-align:left; margin-bottom: 0em; font-size: 13px; font-weight: 100;"> Equal <span style="float:right"> 3 times </span> </p>
           </div>
         </div>
-        <div id="legend-wrapper">
-          <div class="legendInfo">
-            <a class="button" href="#popup3"><span class="material-symbols-outlined">Help</span></a>
-          </div>
+      </div>
+      <div id="legend-wrapper">
+        <div class="legendInfo">
+          <a class="button" href="#popup3"><span class="material-symbols-outlined">Help</span></a>
         </div>
       </div>
-    </div>
-
+      <div id="popup1" class="overlay">
+        <div class="popup">
+          <h2>How is the 'Transit Inequality' measured?</h2>
+            <a class="close" href="#mapWrapperEqu">&times;</a>
+            <div class="content">
+              <ul>
+                <li>The numeric values are Gap indices that summarize the overall gap between transit supply (i.e., accessibility) and demand, which is measured by:
+                  <p class="cmath"> $$ \sum_{i=1}^n(\mid ServiceSupply_{i}^{percentile}\mid - \mid ServiceDemand_{i}^{percentile}\mid) \over n $$</p></li>
+                <li>The Gap index ranges from 0 to 1, where a value of 1 represents total inequity.</li>
+                <li>The scatterplot shows how the transit service supply is distributed with respect to the transit demand variable.</li>
+              </ul>
+            </div>
+        </div>
+        <div id='plot-wrapper'>
+          <div id='gapSummary'>
+            <div id='gapTitle'>
+              <p> Transit Inequity: demand-supply gap <a class="button" href="#popup1"><span class="material-symbols-outlined">Help</span></a></p>
+            </div>
+            <div id='gapSmallText'>
+              <p> Current </p>
+              <p style="color: #dcfcb8; font-weight: 300;"> ODMTS </p>
+            </div>
+            <div id='gapValue'>
+              <p> <span id="gapValueBefore2"></b> </span> </p>
+              <p> <span id="gapValueAfter2"></b> </span> </p>
+            </div>
+          </div>
+          <div id='scatterPlot'></div>
+          <div id='giniSummary'></div>
+          <div id="lorenzCurve" style="visibility:hidden"></div>
+        </div>
+      </div>
+      <div id="popup2" class="overlay">
+        <div class="popup" style="top: 50%;">
+            <h2>How is the 'Transit Inequality' measured?</h2>
+            <a class="close" href="#mapWrapperEqu">&times;</a>
+            <div class="content">
+              <ul>
+                <li>The numeric values are Gini indices which represent the degree of inequality among neighborhoods with low/mid/high transit demand, respectively. </li>
+                <li>A high value of Gini index means the distribution is far from equal. </li>
+                <li>The plot is showing Lorenz curves which also indicate the degree of inequality based on how far it is from the line of equality.</li>
+              </ul>
+            </div>
+        </div>
+        <div id='plot-wrapper'>
+          <div id='gapSummary'></div>
+          <div id='scatterPlot' style="visibility:hidden"></div>
+          <div id='giniSummary'>
+            <div id="giniTitle">
+              <p>Transit Inequality by Level of Demand <a class="button" href="#popup2"><span class="material-symbols-outlined">Help</span></a></p>
+            </div>
+            <div id="giniSmallText">
+              <p> Current </p>
+              <p style="color: #dcfcb8; font-weight: 300;"> ODMTS </p>
+            </div>
+            <div id="giniValue-wrapper">
+              <div id="giniValue">
+                <p style="color: #fffde6;"> <span id="giniBeforeLow2"></b> </span> </p>
+                <p style="color: #f7adad;"> <span id="giniBeforeMid2"></b> </span> </p>
+                <p style="color: #e34b4b;"> <span id="giniBeforeHigh2"></b> </span> </p>
+              </div>
+              <div id="giniValue">
+                <p style="font-size: 12px; font-weight: 300; text-align: center;"> Low-demand neighborhoods </p>
+                <p style="font-size: 12px; font-weight: 300; text-align: center;"> Mid-demand neighborhoods </p>
+                <p style="font-size: 12px; font-weight: 300; text-align: center;"> High-demand neighborhoods </p>
+              </div>
+              <div id="giniValue">
+                <p style="color: #fffde6;"> <span id="giniAfterLow2"></b> </span> </p>
+                <p style="color: #f7adad;"> <span id="giniAfterMid2"></b> </span> </p>
+                <p style="color: #e34b4b;"> <span id="giniAfterHigh2"></b> </span> </p>
+              </div>
+            </div>
+          </div>
+          <div id="lorenzCurve"></div>
+        </div>
+      </div>
+      <div id="popup3" class="overlay">
+        <div class="popup" style="top: 65%; left: 13%;">
+          <h2>How does the legend work?</h2>
+          <a class="close" href="#mapWrapperEqu">&times;</a>
+          <div class="content">
+            <ul>
+              <li>The legend shows the level of transit accessibility and transit demand that each Block Group falls under</li>
+              <li><span style="background: #663d9c;">Purple</span> means transit is over-supplied compared to the low transit demand </li>
+              <li><span style="background: #b55353;">Red</span> means transit is under-spplied compared to the high transit demand </li>
+              <li><span style="background: #fffacf; color: black;">Ivory</span> means transit supply corresponds to the transit demand </li>
+              <li>Click each of the nine boxes to highlight neighborhoods in each category; or click each circle on the axes to highlight by row/column </li>
+            </ul>
+          </div>
+        </div>
+        <div id="filter-wrapper">
+          <div></div>
+          <div id="legend-wrapper"></div>
+        </div>
+      </div>
+    </div>  
     <!-- Custom scripts for this template -->
     <script src="js/creative.js"></script>
     <script src="js/accessibility.js"></script>
